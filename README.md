@@ -1,6 +1,6 @@
 # decision_maker
 
-A new Flutter project.
+Try this app for making simple as well as complex decisions
 
 ## Getting Started
 
