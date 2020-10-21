@@ -7,20 +7,6 @@ class MyForm extends StatefulWidget {
 
 class _MyFormState extends State<MyForm> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _nameController;
-  static List<String> alternativesList = [null];
-
-  @override
-  void initState() {
-    super.initState();
-    _nameController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,23 +24,111 @@ class _MyFormState extends State<MyForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Enter Alternatives',
+                'Enter Your Choices',
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
               ),
-              ..._getAlternatives(), // spread operator (...) provides a concise way to insert multiple elements into a collection.
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(hintText: 'Choice 1'),
+                      validator: (v) {
+                        if (v.trim().isEmpty) return 'Please enter something';
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(
                 height: 40,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(hintText: 'Choice 2'),
+                      validator: (v) {
+                        if (v.trim().isEmpty) return 'Please enter something';
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(hintText: 'Choice 3'),
+                      validator: (v) {
+                        if (v.trim().isEmpty) return 'Please enter something';
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 80,
               ),
               FlatButton(
                 height: 50,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: Colors.blue)),
-                onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    _formKey.currentState.save();
-                  }
-                },
+                onPressed: () {},
                 child: Center(
                   child: Text(
                     'Generate Random Answer',
@@ -68,93 +142,6 @@ class _MyFormState extends State<MyForm> {
           ),
         ),
       ),
-    );
-  }
-
-  /// get firends text-fields
-  List<Widget> _getAlternatives() {
-    List<Widget> alternativesTextFields = [];
-    for (int i = 0; i < alternativesList.length; i++) {
-      alternativesTextFields.add(Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
-        child: Row(
-          children: [
-            Expanded(child: AlternativeTextFields(i)),
-            SizedBox(
-              width: 16,
-            ),
-            // we need add button at last Alternatives row
-            _addRemoveButton(i == alternativesList.length - 1, i),
-          ],
-        ),
-      ));
-    }
-    return alternativesTextFields;
-  }
-
-  /// add / remove button
-  Widget _addRemoveButton(bool add, int index) {
-    return InkWell(
-      onTap: () {
-        if (add) {
-          // add new text-fields at the top of all Alternatives textfields
-          alternativesList.insert(0, null);
-        } else
-          alternativesList.removeAt(index);
-        setState(() {});
-      },
-      child: Container(
-        width: 30,
-        height: 30,
-        decoration: BoxDecoration(
-          color: (add) ? Colors.green : Colors.red,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Icon(
-          (add) ? Icons.add : Icons.remove,
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
-}
-
-class AlternativeTextFields extends StatefulWidget {
-  final int index;
-  AlternativeTextFields(this.index);
-  @override
-  _AlternativeTextFieldsState createState() => _AlternativeTextFieldsState();
-}
-
-class _AlternativeTextFieldsState extends State<AlternativeTextFields> {
-  TextEditingController _nameController;
-
-  @override
-  void initState() {
-    super.initState();
-    _nameController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _nameController.text = _MyFormState.alternativesList[widget.index] ?? '';
-    });
-
-    return TextFormField(
-      controller: _nameController,
-      onChanged: (v) => _MyFormState.alternativesList[widget.index] = v,
-      decoration: InputDecoration(hintText: 'Enter Alternative\'s name'),
-      validator: (v) {
-        if (v.trim().isEmpty) return 'Please enter something';
-        return null;
-      },
     );
   }
 }
