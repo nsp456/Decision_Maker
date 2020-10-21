@@ -1,100 +1,155 @@
 import 'package:flutter/material.dart';
 import 'package:custom_switch/custom_switch.dart';
+import 'package:foldable_sidebar/foldable_sidebar.dart';
 
 import 'formRandom.dart';
 import 'multipleAttributes.dart';
+import 'flipCoin.dart';
 
-class NavDrawer extends StatefulWidget {
+class MyHomePage extends StatefulWidget {
   @override
-  _NavDrawerState createState() => _NavDrawerState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _NavDrawerState extends State<NavDrawer> {
+class _MyHomePageState extends State<MyHomePage> {
+  FSBStatus drawerStatus;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: FoldableSidebarBuilder(
+          drawerBackgroundColor: Colors.green,
+          drawer: CustomDrawer(
+            closeDrawer: () {
+              setState(() {
+                drawerStatus = FSBStatus.FSB_CLOSE;
+              });
+            },
+          ),
+          screenContents: Home(),
+          status: drawerStatus,
+        ),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.green,
+            child: Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                drawerStatus = drawerStatus == FSBStatus.FSB_OPEN
+                    ? FSBStatus.FSB_CLOSE
+                    : FSBStatus.FSB_OPEN;
+              });
+            }),
+      ),
+    );
+  }
+}
+
+class CustomDrawer extends StatefulWidget {
+  final Function closeDrawer;
+
+  const CustomDrawer({Key key, this.closeDrawer}) : super(key: key);
+
+  @override
+  _CustomDrawerState createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
   bool status = false;
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData mediaQuery = MediaQuery.of(context);
     return Container(
-      width: MediaQuery.of(context).size.width * 8 / 10,
-      child: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text(
-                'Hello Guest !',
-                style: TextStyle(color: Colors.white, fontSize: 25),
-              ),
-              decoration: BoxDecoration(
-                  color: Colors.green,
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/cover.jpg'))),
-            ),
-            Container(
-              child: Row(
+      color: Colors.white,
+      width: mediaQuery.size.width * 0.60,
+      height: mediaQuery.size.height,
+      child: Column(
+        children: <Widget>[
+          Container(
+              width: double.infinity,
+              height: 200,
+              color: Colors.grey.withAlpha(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(width: 13),
-                  Icon(Icons.nightlight_round),
-                  SizedBox(width: 35),
-                  Text.rich(
-                    TextSpan(
-                      style: TextStyle(fontSize: 16),
-                      children: [
-                        TextSpan(
-                          text: 'Dark Theme ',
-                        ),
-                        WidgetSpan(
-                          child: CustomSwitch(
-                            activeColor: Colors.green,
-                            value: status,
-                            onChanged: (value) {
-                              print("VALUE : $value");
-                              setState(() {
-                                status = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                  Text(
+                    "Decision Maker",
                     textAlign: TextAlign.center,
+                    style:
+                        (TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                  ),
+                  Image.asset(
+                    "assets/images/dm_logo.jpg",
+                    width: 100,
+                    height: 100,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Hello User",
+                    textAlign: TextAlign.center,
+                    style:
+                        (TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                   ),
                 ],
-              ),
+              )),
+          Text.rich(
+            TextSpan(
+              style: TextStyle(fontSize: 16),
+              children: [
+                TextSpan(
+                    text: 'Dark Theme ',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                WidgetSpan(
+                  child: CustomSwitch(
+                    activeColor: Colors.green,
+                    value: status,
+                    onChanged: (value) {
+                      print("VALUE : $value");
+                      setState(() {
+                        status = value;
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
-            ListTile(
-              leading: Icon(Icons.input),
-              title: Text('Take a tour'),
-              onTap: () => {},
-            ),
-            ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('History'),
-              onTap: () => {Navigator.of(context).pop()},
-            ),
-            ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('Incomplete'),
-              onTap: () => {Navigator.of(context).pop()},
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () => {Navigator.of(context).pop()},
-            ),
-            ListTile(
-              leading: Icon(Icons.border_color),
-              title: Text('Feedback'),
-              onTap: () => {Navigator.of(context).pop()},
-            ),
-            ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('Login'),
-              onTap: () => {Navigator.of(context).pop()},
-            ),
-          ],
-        ),
+            //textAlign: TextAlign.center,
+          ),
+          Divider(
+            height: 1,
+            color: Colors.grey,
+          ),
+          ListTile(
+            onTap: () {},
+            leading: Icon(Icons.date_range),
+            title: Text("History"),
+          ),
+          Divider(
+            height: 1,
+            color: Colors.grey,
+          ),
+          ListTile(
+            onTap: () {},
+            leading: Icon(Icons.insert_invitation_outlined),
+            title: Text("Incomplete"),
+          ),
+          Divider(
+            height: 1,
+            color: Colors.grey,
+          ),
+          ListTile(
+            onTap: () {},
+            leading: Icon(Icons.exit_to_app),
+            title: Text("Log Out"),
+          ),
+        ],
       ),
     );
   }
@@ -113,28 +168,21 @@ class _HomeState extends State<Home> {
       //color: Colors.transparent,
       home: Container(
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.transparent,
             image: DecorationImage(
                 image: AssetImage("assets/images/light_mode.jpg"),
                 fit: BoxFit.cover)),
         child: Scaffold(
           appBar: AppBar(
             titleSpacing: 0.0,
-            backgroundColor: Colors.lightBlue,
-            leading: IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => NavDrawer()),
-                  );
-                }),
+            backgroundColor: Colors.green,
             title: Text(
-              'Home',
+              '      Home',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             ),
           ),
           body: Container(
+            color: Colors.transparent,
             child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -144,67 +192,104 @@ class _HomeState extends State<Home> {
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 8 / 10,
-                    height: MediaQuery.of(context).size.height * 3 / 10,
+                    height: MediaQuery.of(context).size.height * 1.5 / 10,
                     child: RaisedButton(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.orange)),
+                          borderRadius: BorderRadius.circular(32.0),
+                          side: BorderSide(color: Colors.blue)),
                       child: Text(
                         "Many Alternatives \n  with Attributes",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 35),
+                            fontWeight: FontWeight.bold, fontSize: 25),
                         textAlign: TextAlign.center,
                       ),
-                      onPressed: () async {
-                        List<AlternativeEntry> alternatives =
-                            await Navigator.push(
+                      onPressed: () {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => SOF(),
                           ),
                         );
-                        if (alternatives != null) alternatives.forEach(print);
                       },
-                      color: Colors.lightBlueAccent,
-                      textColor: Colors.black,
+                      color: Colors.green,
+                      textColor: Colors.white,
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                      splashColor: Colors.purple,
+                      splashColor: Colors.red,
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(15.0),
                   ),
-                  Container(
-                      child: Center(
-                    child: Text("OR",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25)),
-                  )),
+                  Divider(
+                    height: 1,
+                    color: Colors.grey,
+                  ),
                   Padding(
                     padding: EdgeInsets.all(15.0),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 8 / 10,
-                    height: MediaQuery.of(context).size.height * 3 / 10,
+                    height: MediaQuery.of(context).size.height * 1.5 / 10,
                     child: RaisedButton(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.orange)),
+                          borderRadius: BorderRadius.circular(32.0),
+                          side: BorderSide(color: Colors.blue)),
                       child: Text(
                         "Randomly choose \nan alternative",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 35),
+                            fontWeight: FontWeight.bold, fontSize: 25),
                         textAlign: TextAlign.center,
                       ),
                       onPressed: () {
-                        _navigateToRandomAnswerScreen(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MyForm()),
+                        );
                       },
-                      color: Colors.lightBlueAccent,
-                      textColor: Colors.black,
+                      color: Colors.green,
+                      textColor: Colors.white,
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                      splashColor: Colors.purple,
+                      splashColor: Colors.red,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(15.0),
+                  ),
+                  Divider(
+                    height: 1,
+                    color: Colors.grey,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(15.0),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 8 / 10,
+                    height: MediaQuery.of(context).size.height * 1.5 / 10,
+                    child: RaisedButton(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0),
+                          side: BorderSide(color: Colors.blue)),
+                      child: Text(
+                        "Flip A \n  Coin",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25),
+                        textAlign: TextAlign.center,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FlipCoin(),
+                          ),
+                        );
+                      },
+                      color: Colors.green,
+                      textColor: Colors.white,
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                      splashColor: Colors.red,
                     ),
                   ),
                 ],
@@ -214,10 +299,5 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
-  }
-
-  void _navigateToRandomAnswerScreen(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => MyForm()));
   }
 }
