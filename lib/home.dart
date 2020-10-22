@@ -5,6 +5,10 @@ import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'formRandom.dart';
 import 'multipleAttributes.dart';
 import 'flipCoin.dart';
+import 'History.dart';
+import 'incomplete_job.dart';
+import 'login.dart';
+import 'Appbar.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -127,7 +131,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
             color: Colors.grey,
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => History(),
+                ),
+              );
+            },
             leading: Icon(Icons.date_range),
             title: Text("History"),
           ),
@@ -136,7 +147,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
             color: Colors.grey,
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Incomplete_job(),
+                ),
+              );
+            },
             leading: Icon(Icons.insert_invitation_outlined),
             title: Text("Incomplete"),
           ),
@@ -145,7 +163,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
             color: Colors.grey,
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginPage(),
+                ),
+              );
+            },
             leading: Icon(Icons.exit_to_app),
             title: Text("Log Out"),
           ),
@@ -174,12 +199,9 @@ class _HomeState extends State<Home> {
                 fit: BoxFit.cover)),
         child: Scaffold(
           appBar: AppBar(
-            titleSpacing: 0.0,
-            backgroundColor: Colors.green,
-            title: Text(
-              '      Home',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-            ),
+            centerTitle: true,
+            title: Text("Home", style: TextStyle(fontSize: 25)),
+            flexibleSpace: App_bar(),
           ),
           body: Container(
             color: Colors.transparent,
@@ -188,11 +210,11 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: EdgeInsets.all(25.0),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 8 / 10,
-                    height: MediaQuery.of(context).size.height * 1.5 / 10,
+                    width: MediaQuery.of(context).size.width * 9.5 / 10,
+                    height: MediaQuery.of(context).size.height * 1 / 10,
                     child: RaisedButton(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -200,15 +222,14 @@ class _HomeState extends State<Home> {
                           side: BorderSide(color: Colors.blue)),
                       child: Text(
                         "Many Alternatives \n  with Attributes",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25),
+                        style: TextStyle(fontSize: 20),
                         textAlign: TextAlign.center,
                       ),
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SOF(),
+                            builder: (context) => MultipleAttributes(),
                           ),
                         );
                       },
@@ -219,18 +240,18 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: EdgeInsets.all(25.0),
                   ),
                   Divider(
                     height: 1,
                     color: Colors.grey,
                   ),
                   Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: EdgeInsets.all(25.0),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 8 / 10,
-                    height: MediaQuery.of(context).size.height * 1.5 / 10,
+                    width: MediaQuery.of(context).size.width * 9.5 / 10,
+                    height: MediaQuery.of(context).size.height * 1 / 10,
                     child: RaisedButton(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -238,8 +259,7 @@ class _HomeState extends State<Home> {
                           side: BorderSide(color: Colors.blue)),
                       child: Text(
                         "Randomly choose \nan alternative",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25),
+                        style: TextStyle(fontSize: 20),
                         textAlign: TextAlign.center,
                       ),
                       onPressed: () {
@@ -255,18 +275,18 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: EdgeInsets.all(25.0),
                   ),
                   Divider(
                     height: 1,
                     color: Colors.grey,
                   ),
                   Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: EdgeInsets.all(25.0),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 8 / 10,
-                    height: MediaQuery.of(context).size.height * 1.5 / 10,
+                    width: MediaQuery.of(context).size.width * 9.5 / 10,
+                    height: MediaQuery.of(context).size.height * 1 / 10,
                     child: RaisedButton(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -274,8 +294,7 @@ class _HomeState extends State<Home> {
                           side: BorderSide(color: Colors.blue)),
                       child: Text(
                         "Flip A \n  Coin",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25),
+                        style: TextStyle(fontSize: 20),
                         textAlign: TextAlign.center,
                       ),
                       onPressed: () {
