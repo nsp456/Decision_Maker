@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Appbar.dart';
+
 class FlipCoin extends StatefulWidget {
   @override
   _FlipCoinState createState() => _FlipCoinState();
@@ -14,7 +16,16 @@ class _FlipCoinState extends State<FlipCoin> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Flip A Coin'),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text("Flip A Coin"),
+        flexibleSpace: App_bar(),
       ),
       body: Form(
         key: _formKey,
