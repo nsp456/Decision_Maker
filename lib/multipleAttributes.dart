@@ -1,120 +1,128 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SOF extends StatefulWidget {
+import 'card.dart';
+import 'Appbar.dart';
+
+class MultipleAttributes extends StatelessWidget {
   @override
-  _SOFState createState() => _SOFState();
-}
-
-class _SOFState extends State<SOF> {
-  var attr1TECs = <TextEditingController>[];
-  var attr2TECs = <TextEditingController>[];
-  var attr3TECs = <TextEditingController>[];
-  var cards = <Card>[];
-
-  Card createCard() {
-    var attr1Controller = TextEditingController();
-    var attr2Controller = TextEditingController();
-    var attr3Controller = TextEditingController();
-    attr1TECs.add(attr1Controller);
-    attr2TECs.add(attr2Controller);
-    attr3TECs.add(attr3Controller);
-    return Card(
-      color: Colors.grey[100],
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18.0),
-          side: BorderSide(color: Colors.red)),
-      child: Padding(
-        padding: EdgeInsets.all(5),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ExpansionTile(
-              initiallyExpanded: true,
-              title: Text('Alternative ${cards.length + 1}'),
-              children: <Widget>[
-                TextField(
-                    controller: attr1Controller,
-                    decoration: InputDecoration(labelText: 'Attribute 1')),
-                TextField(
-                    controller: attr2Controller,
-                    decoration: InputDecoration(labelText: 'Attribute 2')),
-                TextField(
-                    controller: attr3Controller,
-                    decoration: InputDecoration(labelText: 'Attribute 3')),
-              ],
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
             ),
-            // Text('Alternative ${cards.length + 1}'),
-            // TextField(
-            //     controller: attr1Controller,
-            //     decoration: InputDecoration(labelText: 'Attribute 1')),
-            // TextField(
-            //     controller: attr2Controller,
-            //     decoration: InputDecoration(labelText: 'Attribute 2')),
-            // TextField(
-            //     controller: attr3Controller,
-            //     decoration: InputDecoration(labelText: 'Attribute 3')),
-          ],
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          title: Text("With Attributes"),
+          flexibleSpace: App_bar(),
         ),
+        body: Page(),
+        // body: Page(),
       ),
     );
   }
+}
 
+class Page extends StatefulWidget {
   @override
-  void initState() {
-    super.initState();
-    cards.add(createCard());
-  }
+  _PageState createState() => _PageState();
+}
 
-  _onDone() {
-    List<AlternativeEntry> entries = [];
-    for (int i = 0; i < cards.length; i++) {
-      var attr1 = attr1TECs[i].text;
-      var attr2 = attr2TECs[i].text;
-      var attr3 = attr3TECs[i].text;
-      entries.add(AlternativeEntry(attr1, attr2, attr3));
-    }
-    Navigator.pop(context, entries);
-  }
-
+class _PageState extends State<Page> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('With Attributes'),
-      ),
-      body: Column(
+    return Center(
+        child: Padding(
+      padding: EdgeInsets.fromLTRB(70, 0, 70, 0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Expanded(
-            child: ListView.builder(
-              itemCount: cards.length,
-              itemBuilder: (BuildContext context, int index) {
-                return cards[index];
-              },
+          Text(
+            "Enter the name for Decision making job",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.grey[800],
+              fontWeight: FontWeight.bold,
+              fontSize: 25.0,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: RaisedButton(
-              child: Text('Add New Alternative'),
-              onPressed: () => setState(() => cards.add(createCard())),
+          SizedBox(
+            height: 50.0,
+          ),
+          Form(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                TextFormField(
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                      hintText: 'Enter Name Here',
+                      hintStyle: TextStyle(fontSize: 20)),
+                ),
+                SizedBox(
+                  width: 20.0,
+                  height: 20.0,
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+                    child: Container(
+                      child: RawMaterialButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100.0),
+                            side: BorderSide(color: Colors.transparent)),
+                        onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Alternative())),
+                        },
+                        fillColor: Colors.green,
+                        splashColor: Colors.greenAccent,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const <Widget>[
+                              Text(
+                                "Go",
+                                // textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25.0),
+                              ),
+                              Icon(
+                                FontAwesomeIcons.arrowRight,
+                                size: 20.0,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          new BoxShadow(
+                              color: Colors.grey[500],
+                              blurRadius: 20.0,
+                              offset: Offset(-3.0, 5))
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
           )
         ],
       ),
-      floatingActionButton:
-          FloatingActionButton(child: Icon(Icons.done), onPressed: _onDone),
-    );
-  }
-}
-
-class AlternativeEntry {
-  final String attr1;
-  final String attr2;
-  final String studyattr3;
-
-  AlternativeEntry(this.attr1, this.attr2, this.studyattr3);
-  @override
-  String toString() {
-    return 'alternative: attr1= $attr1, attr2= $attr2, study attr3= $studyattr3';
+    ));
   }
 }
