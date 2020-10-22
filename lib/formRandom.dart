@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Appbar.dart';
+
 class MyForm extends StatefulWidget {
   @override
   _MyFormState createState() => _MyFormState();
@@ -14,7 +16,16 @@ class _MyFormState extends State<MyForm> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Random Answer Generator'),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text("Random Answer Generator"),
+        flexibleSpace: App_bar(),
       ),
       body: Form(
         key: _formKey,
