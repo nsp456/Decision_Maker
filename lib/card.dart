@@ -139,7 +139,7 @@ class _AlternativeState extends State<Alternative> {
   }
 }
 
-class Alternative_card extends StatelessWidget {
+class Alternative_card extends StatefulWidget {
   String alternative_no;
   String first, second;
   IconData iconData, first_icon, second_icon;
@@ -153,6 +153,11 @@ class Alternative_card extends StatelessWidget {
       this.second,
       this.t});
 
+  @override
+  _Alternative_cardState createState() => _Alternative_cardState();
+}
+
+class _Alternative_cardState extends State<Alternative_card> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -181,17 +186,17 @@ class Alternative_card extends StatelessWidget {
                             width: 10,
                           ),
                           Text(
-                            alternative_no,
+                            widget.alternative_no,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold),
                           ),
-                          t != null ? t : Text(""),
+                          widget.t != null ? widget.t : Text(""),
                         ],
                       ),
                       Icon(
-                        iconData,
+                        widget.iconData,
                         color: Colors.grey,
                       )
                     ],
@@ -204,7 +209,7 @@ class Alternative_card extends StatelessWidget {
                     child: Row(
                       children: <Widget>[
                         Icon(
-                          first_icon,
+                          widget.first_icon,
                           color: Colors.red,
                           size: 20,
                         ),
@@ -212,7 +217,7 @@ class Alternative_card extends StatelessWidget {
                           width: 10.0,
                         ),
                         Text(
-                          first,
+                          widget.first,
                           style: TextStyle(fontSize: 13),
                         )
                       ],
@@ -226,14 +231,14 @@ class Alternative_card extends StatelessWidget {
                     child: Row(
                       children: <Widget>[
                         Icon(
-                          second_icon,
+                          widget.second_icon,
                           size: 15.0,
                         ),
                         SizedBox(
                           width: 15.0,
                         ),
                         Text(
-                          second,
+                          widget.second,
                           style: TextStyle(fontSize: 13),
                         )
                       ],
