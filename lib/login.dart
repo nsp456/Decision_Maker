@@ -1,128 +1,161 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'home.dart';
 
-class LoginPage extends StatefulWidget {
-  _LoginPageState createState() => _LoginPageState();
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  TextStyle style = TextStyle(fontFamily: 'OpenSans', fontSize: 20.0);
+class _LoginScreenState extends State<LoginScreen> {
+  final Color primaryColor = Color(0xff18203d);
+
+  final Color secondaryColor = Color(0xff232c51);
+
+  final Color logoGreen = Color(0xff25bcbb);
+
+  bool checkedValue = true;
 
   @override
   Widget build(BuildContext context) {
-    final emailField = TextField(
-      obscureText: false,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(15.0),
-          hintText: "Email",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(25.0))),
-    );
-
-    final passwordField = TextField(
-      obscureText: true,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(15.0),
-          hintText: "Password",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(25.0))),
-    );
-
-    final loginButon = Material(
-      elevation: 5.0,
-      borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
-      child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(15.0),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MyHomePage()),
-          );
-        },
-        child: Text(
-          "Login",
-          textAlign: TextAlign.center,
-          style: (TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25)),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      backgroundColor: primaryColor,
+      body: Container(
+        alignment: Alignment.topCenter,
+        margin: EdgeInsets.symmetric(horizontal: 30),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Sign in to continue',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.openSans(color: Colors.white, fontSize: 28),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Enter your email and password below to continue to the app and start making decisions !',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.openSans(color: Colors.white, fontSize: 14),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              _buildTextField(Icons.account_circle, 'Email', false),
+              SizedBox(height: 20),
+              _buildTextField(Icons.lock, 'Password', true),
+              SizedBox(height: 10),
+              CheckboxListTile(
+                title: Text(
+                  "Remember me",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                checkColor: Colors.white,
+                value: checkedValue,
+                onChanged: (newValue) {
+                  setState(() {
+                    checkedValue = newValue;
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.leading,
+              ),
+              SizedBox(height: 30),
+              MaterialButton(
+                elevation: 0,
+                minWidth: double.maxFinite,
+                height: 50,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyHomePage(),
+                    ),
+                  );
+                },
+                color: logoGreen,
+                child: Text('Login',
+                    style: TextStyle(color: Colors.white, fontSize: 16)),
+                textColor: Colors.white,
+              ),
+              SizedBox(height: 20),
+              MaterialButton(
+                elevation: 0,
+                minWidth: double.maxFinite,
+                height: 50,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyHomePage(),
+                    ),
+                  );
+                },
+                color: Colors.blue,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(FontAwesomeIcons.google),
+                    SizedBox(width: 10),
+                    Text('Sign-in using Google',
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                  ],
+                ),
+                textColor: Colors.white,
+              ),
+              SizedBox(height: 20),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/dm_logo.jpg',
+                      height: 40,
+                    ),
+                    Text(
+                      '    Decision Maker App',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.openSans(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
+  }
 
+  _buildTextField(IconData icon, String labelText, bool obsText) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-          color: Colors.transparent,
-          image: DecorationImage(
-              image: AssetImage("assets/images/bg.jpg"), fit: BoxFit.cover)),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.transparent,
-        body: Center(
-          child: Container(
-            color: Colors.transparent,
-            child: Padding(
-              padding: const EdgeInsets.all(36.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: 155.0,
-                    child: Image.asset(
-                      "assets/images/icon.jpg",
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  SizedBox(height: 40.0),
-                  emailField,
-                  SizedBox(height: 20.0),
-                  passwordField,
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  loginButon,
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text.rich(
-                    TextSpan(
-                      style: TextStyle(fontSize: 16),
-                      children: [
-                        TextSpan(
-                          text: 'Not registered yet? ',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        WidgetSpan(
-                          child: RaisedButton(
-                            elevation: 5.0,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                                side: BorderSide(color: Colors.red)),
-                            child: Text(
-                              'Sign Up',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyHomePage()),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+          color: secondaryColor, border: Border.all(color: Colors.blue)),
+      child: TextField(
+        obscureText: obsText,
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+            labelText: labelText,
+            labelStyle: TextStyle(color: Colors.white),
+            icon: Icon(
+              icon,
+              color: Colors.white,
             ),
-          ),
-        ),
+            border: InputBorder.none),
       ),
     );
   }
