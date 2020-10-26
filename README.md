@@ -1,4 +1,4 @@
-# decision_maker
+# DECISION MAKER
 
 Try this app for making simple as well as complex decisions
 
