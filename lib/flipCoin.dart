@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'Appbar.dart';
+import 'fcr.dart';
+import 'home.dart';
 
 class FlipCoin extends StatefulWidget {
   @override
@@ -22,7 +24,10 @@ class _FlipCoinState extends State<FlipCoin> {
             Icons.arrow_back,
             color: Colors.white,
           ),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => MyHomePage()));
+          },
         ),
         title: Text("Flip A Coin"),
         flexibleSpace: App_bar(),
@@ -62,7 +67,12 @@ class _FlipCoinState extends State<FlipCoin> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: Colors.blue)),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FlipCoinResult()));
+                },
                 child: Center(
                   child: Text(
                     'Flip Coin',
