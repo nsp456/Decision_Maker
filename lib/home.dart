@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:custom_switch/custom_switch.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'formRandom.dart';
 import 'multipleAttributes.dart';
@@ -9,6 +10,7 @@ import 'History.dart';
 import 'incomplete_job.dart';
 import 'login.dart';
 import 'Appbar.dart';
+import './login.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -163,7 +165,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
             color: Colors.grey,
           ),
           ListTile(
-            onTap: () {
+            onTap: () async {
+              await Signout().signout();
               Navigator.push(
                 context,
                 MaterialPageRoute(
