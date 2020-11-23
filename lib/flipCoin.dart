@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 import 'Appbar.dart';
 import 'fcr.dart';
@@ -11,6 +12,10 @@ class FlipCoin extends StatefulWidget {
 
 class _FlipCoinState extends State<FlipCoin> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController _nameController;
+  static final List<String> coinList = [null, null];
+  int ch;
+  String coinChoice;
 
   @override
   Widget build(BuildContext context) {
@@ -42,36 +47,25 @@ class _FlipCoinState extends State<FlipCoin> {
               SizedBox(
                 height: 40,
               ),
-              TextFormField(
-                decoration: InputDecoration(hintText: 'Enter Head\'s value'),
-                validator: (v) {
-                  if (v.trim().isEmpty) return 'Please enter something';
-                  return null;
-                },
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              TextFormField(
-                decoration: InputDecoration(hintText: 'Enter Tail\'s name'),
-                validator: (v) {
-                  if (v.trim().isEmpty) return 'Please enter something';
-                  return null;
-                },
-              ),
-              SizedBox(
-                height: 80,
-              ),
+              addTextField('Head', 0),
+              SizedBox(height: 40),
+              addTextField('Tail', 1),
+              SizedBox(height: 80),
               FlatButton(
                 height: 50,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: Colors.blue)),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => FlipCoinResult()));
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    coinChoice = coinToss();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                FlipCoinResult(ch, coinChoice)));
+                  }
                 },
                 child: Center(
                   child: Text(
@@ -86,6 +80,25 @@ class _FlipCoinState extends State<FlipCoin> {
           ),
         ),
       ),
+    );
+  }
+
+  String coinToss() {
+    int length = coinList.length;
+    Random random = Random();
+    int ch = random.nextInt(length);
+    return coinList[ch];
+  }
+
+  Widget addTextField(String value, int ind) {
+    return TextFormField(
+      controller: _nameController,
+      onChanged: (v) => coinList[ind] = v,
+      decoration: InputDecoration(hintText: 'Enter $value\'s value'),
+      validator: (v) {
+        if (v.trim().isEmpty) return 'Text field cannot be blank';
+        return null;
+      },
     );
   }
 }
