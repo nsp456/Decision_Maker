@@ -130,7 +130,6 @@ class _MyFormState extends State<MyForm> {
         ),
       ));
     }
-    //if (alternativesList.length >= 2)
     return alternativesTextFields;
   }
 
@@ -186,9 +185,12 @@ class _AlternativeTextFieldsState extends State<AlternativeTextFields> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _nameController.text = _MyFormState.alternativesList[widget.index] ?? '';
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        _nameController.text =
+            _MyFormState.alternativesList[widget.index] ?? '';
+      },
+    );
 
     return TextFormField(
       controller: _nameController,
