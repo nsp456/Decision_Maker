@@ -3,13 +3,21 @@ import 'package:flutter/material.dart';
 import 'flipCoin.dart';
 
 class FlipCoinResult extends StatefulWidget {
+  int ch;
+  String coinChoice;
+  FlipCoinResult(int ch, String coinChoice) {
+    this.ch = ch;
+    this.coinChoice = coinChoice;
+  }
+
   @override
   _FlipCoinResultState createState() => _FlipCoinResultState();
 }
 
 class _FlipCoinResultState extends State<FlipCoinResult> {
   @override
-  String abc = 'pizza';
+  static String tossResult;
+
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
@@ -19,7 +27,6 @@ class _FlipCoinResultState extends State<FlipCoinResult> {
             fit: BoxFit.cover,
           ),
         ),
-        //color: Colors.transparent,
         child: Card(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18.0),
@@ -38,7 +45,7 @@ class _FlipCoinResultState extends State<FlipCoinResult> {
                     height: 150,
                   ),
                   Text(
-                    'It\'s Heads ! \nYou should choose: \n$abc',
+                    'You should choose: \n${widget.coinChoice}',
                     style: TextStyle(
                         fontFamily: 'OpenSans',
                         fontSize: 30,
