@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'formRandom.dart';
 
 class RandomResult extends StatefulWidget {
+  String choice;
+  RandomResult(String choice) {
+    this.choice = choice;
+  }
+
   @override
   _RandomResultState createState() => _RandomResultState();
 }
 
 class _RandomResultState extends State<RandomResult> {
-  @override
-  String abc = 'pizza';
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
@@ -38,7 +41,7 @@ class _RandomResultState extends State<RandomResult> {
                     height: 150,
                   ),
                   Text(
-                    'You should choose: \n$abc',
+                    'You should choose: \n${widget.choice}',
                     style: TextStyle(
                         fontFamily: 'OpenSans',
                         fontSize: 30,
