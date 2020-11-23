@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 import 'home.dart';
 import 'Appbar.dart';
@@ -13,6 +14,7 @@ class _MyFormState extends State<MyForm> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nameController;
   static List<String> alternativesList = [null];
+  String choice;
 
   @override
   void initState() {
@@ -86,10 +88,11 @@ class _MyFormState extends State<MyForm> {
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         _formKey.currentState.save();
+                        choice = randomAnswerGenerator();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RandomResult()));
+                                builder: (context) => RandomResult(choice)));
                       }
                     },
                     child: Center(
@@ -127,6 +130,7 @@ class _MyFormState extends State<MyForm> {
         ),
       ));
     }
+    //if (alternativesList.length >= 2)
     return alternativesTextFields;
   }
 
@@ -149,6 +153,12 @@ class _MyFormState extends State<MyForm> {
         ),
       ),
     );
+  }
+
+  String randomAnswerGenerator() {
+    int length = alternativesList.length;
+    Random random = Random();
+    return alternativesList[random.nextInt(length)];
   }
 }
 
