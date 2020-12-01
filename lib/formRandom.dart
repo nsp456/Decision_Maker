@@ -4,6 +4,7 @@ import 'dart:math';
 import 'home.dart';
 import 'Appbar.dart';
 import 'rr.dart';
+import 'anim.dart';
 
 class MyForm extends StatefulWidget {
   @override
@@ -92,7 +93,7 @@ class _MyFormState extends State<MyForm> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RandomResult(choice)));
+                                builder: (context) => AnimationPage(choice)));
                       }
                     },
                     child: Center(
