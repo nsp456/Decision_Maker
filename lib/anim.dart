@@ -195,28 +195,6 @@ class ShapePainter extends CustomPainter {
     canvas.drawPath(openSheetPath, openSheetPaint);
 
     canvas.drawPath(letterPath, letterPaint); // letter sheet
-    // canvas.drawLine(Offset(40, 40 + (-60 * value2)),
-    //     Offset(160, 40 + (-60 * value2)), textPaint); // letter text 1
-    // canvas.drawLine(Offset(40, 50 + (-60 * value2)),
-    //     Offset(160, 50 + (-60 * value2)), textPaint); // letter text 2
-    // canvas.drawLine(Offset(40, 60 + (-60 * value2)),
-    //     Offset(160, 60 + (-60 * value2)), textPaint); // letter text 3
-    // canvas.drawLine(Offset(120, 100 + (-60 * value2)),
-    //     Offset(160, 100 + (-60 * value2)), textPaint); // letter text 4
-    // canvas.drawLine(Offset(120, 110 + (-60 * value2)),
-    //     Offset(160, 110 + (-60 * value2)), textPaint); // letter text 4
-    // Text(
-    //   'You should choose: \n$choice',
-    //   style: TextStyle(
-    //       fontFamily: 'OpenSans', fontSize: 30, fontWeight: FontWeight.bold),
-    //   textAlign: TextAlign.center,
-    // );
-    // TextSpan span = new TextSpan(
-    //     style: new TextStyle(color: Colors.grey[600]),
-    //     text: 'You should choose: \n$choice');
-    // TextPainter tp = new TextPainter(text: span, textAlign: TextAlign.left);
-    // tp.layout();
-    // tp.paint(canvas, new Offset(5.0, 5.0));
 
     !isOpen
         ? canvas.drawPath(openSheetPath, openSheetPaint)
@@ -229,7 +207,7 @@ class ShapePainter extends CustomPainter {
       ..addText('You should choose: \n$choice');
     final paragraph = paragraphBuilder.build()
       ..layout(ParagraphConstraints(width: 300));
-    canvas.drawParagraph(paragraph, Offset(-50, 0));
+    canvas.drawParagraph(paragraph, Offset(-50, 55 + (-60 * value2)));
     canvas.drawPath(staticSheetPath1, staticSheetPaint1);
     canvas.drawPath(staticSheetPath2, staticSheetPaint2);
   }
