@@ -6,6 +6,7 @@ import 'jobs.dart';
 import '../home.dart';
 
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class TimelineScreen extends StatelessWidget {
   Job currentJob;
@@ -14,6 +15,7 @@ class TimelineScreen extends StatelessWidget {
   TimelineScreen({@required this.currentJob});
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
     //print("IndvalueOfAlternatibe ${currentJob.indValueOfAlternative}");
     //print("ranking: ${currentJob.rankingList}");
     finalList = currentJob.rankingList.toList();
@@ -70,7 +72,9 @@ class TimelineScreen extends StatelessWidget {
                       print(finResult);
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => MyHomePage()),
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  MyHomePage(auth.currentUser.email)),
                           (Route<dynamic> route) => false);
                     })
               ],
