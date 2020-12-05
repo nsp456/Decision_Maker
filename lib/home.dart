@@ -11,7 +11,12 @@ import 'login.dart';
 import 'Appbar.dart';
 import './login.dart';
 
+String choice;
+
 class MyHomePage extends StatefulWidget {
+  MyHomePage(String username) {
+    choice = username;
+  }
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -96,7 +101,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     height: 10,
                   ),
                   Text(
-                    "Hello User",
+                    "Hello $choice",
                     textAlign: TextAlign.center,
                     style:
                         (TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
