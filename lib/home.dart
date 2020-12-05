@@ -3,7 +3,7 @@ import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'formRandom.dart';
-import 'multipleAttributes.dart';
+import 'attributePage/multipleAttributes.dart';
 import 'flipCoin.dart';
 import 'History.dart';
 import 'incomplete_job.dart';
