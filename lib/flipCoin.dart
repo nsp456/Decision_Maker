@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'Appbar.dart';
 import 'fcr.dart';
@@ -17,6 +19,8 @@ class _FlipCoinState extends State<FlipCoin> {
   int ch;
   String coinChoice;
 
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +35,9 @@ class _FlipCoinState extends State<FlipCoin> {
           ),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => MyHomePage()));
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MyHomePage(auth.currentUser.email)));
           },
         ),
         title: Text("Flip A Coin"),
