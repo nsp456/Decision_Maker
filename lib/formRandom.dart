@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'home.dart';
 import 'Appbar.dart';
@@ -16,6 +17,7 @@ class _MyFormState extends State<MyForm> {
   static List<String> alternativesList = [null];
   String choice;
 
+  final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   void initState() {
     super.initState();
@@ -57,8 +59,10 @@ class _MyFormState extends State<MyForm> {
               Icons.arrow_back,
               color: Colors.white,
             ),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => MyHomePage()))),
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MyHomePage(auth.currentUser.email)))),
         title: Text("Random Answer Generator"),
         flexibleSpace: App_bar(),
       ),
