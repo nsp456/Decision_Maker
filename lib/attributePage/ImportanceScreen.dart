@@ -1,3 +1,4 @@
+import 'package:decision_maker/DialogBox.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 
@@ -5,6 +6,7 @@ import 'TimesScreen.dart';
 import 'package:decision_maker/Appbar.dart';
 import 'BottomButton.dart';
 import 'jobs.dart';
+//import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ImportanceScreen extends StatefulWidget {
   Job currentJob;
@@ -119,6 +121,14 @@ class _ImportanceScreenState extends State<ImportanceScreen> {
                           ),
                         ),
                       );
+                    } else {
+                      /* Alert(
+                        context: context,
+                        title: "ERROR",
+                        desc: "Please Select Importance for all options",
+                      ).show() */
+                      showAlertDialog(
+                          context, "Please Select Importance for all options");
                     }
                   }),
             ],

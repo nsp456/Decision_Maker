@@ -53,6 +53,7 @@ class Job {
   }
 
   void setAttributeValues() {
+    this.attributeNumber = 0;
     for (String key in this.attributeList.keys) {
       this.attributeList[key][0] = attributeNumber++;
       this.attrObjects.add(Attribute(name: key, value: 0.0));

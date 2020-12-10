@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 
 import 'formRandom.dart';
 import 'attributePage/multipleAttributes.dart';
 import 'flipCoin.dart';
 import 'History.dart';
-import 'incomplete_job.dart';
+//import 'incomplete_job.dart';
 import 'login.dart';
 import 'Appbar.dart';
 import './login.dart';
@@ -128,6 +128,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             height: 1,
             color: Colors.grey,
           ),
+          /* 
           ListTile(
             onTap: () {
               Navigator.push(
@@ -143,16 +144,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
           Divider(
             height: 1,
             color: Colors.grey,
-          ),
+          ), */
           ListTile(
             onTap: () async {
               await Signout().signout();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginScreen(),
-                ),
-              );
+              Navigator.of(context).popUntil((route) => route.isFirst);
             },
             leading: Icon(Icons.exit_to_app),
             title: Text("Log Out"),

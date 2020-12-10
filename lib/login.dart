@@ -4,10 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+//import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'home.dart';
+import 'DialogBox.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -161,7 +163,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           setState(() {
                             s = false;
                           });
-                        } catch (e) {}
+                        } catch (e) {
+                          setState(() {
+                            s = false;
+                          });
+                          /* Alert(
+                            context: context,
+                            title: "INVALID CREDENTIALS",
+                          ).show() */
+                          showAlertDialog(context, "Invalid Credentials");
+                        }
                       },
                       color: logoGreen,
                       child: Text('Login',
@@ -197,7 +208,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           } else {
                             print('Invalid Entry');
                           }
-                        } catch (e) {}
+                        } catch (e) {
+                          setState(() {
+                            s = false;
+                          });
+                          /* Alert(
+                            context: context,
+                            title: "INVALID CREDENTIALS",
+                          ).show() */
+                          showAlertDialog(context, "Invalid Values");
+                        }
                       },
                       color: logoGreen,
                       child: Text('Register',
@@ -216,35 +236,45 @@ class _LoginScreenState extends State<LoginScreen> {
                       s = true;
                     });
 
-                    // print('hey');
+                    print('hey');
+                    try {
+                      final GoogleSignInAccount googleUser =
+                          await googleSignIn.signIn();
 
-                    final GoogleSignInAccount googleUser =
-                        await googleSignIn.signIn();
+                      print('1--------------------------------');
+                      final GoogleSignInAuthentication googleAuthentication =
+                          await googleUser.authentication;
+                      print('1----------------------------');
+                      final GoogleAuthCredential credential =
+                          GoogleAuthProvider.credential(
+                              idToken: googleAuthentication.idToken,
+                              accessToken: googleAuthentication.accessToken);
+                      print('1-------------------------');
+                      UserCredential firebaseUser =
+                          (await _auth.signInWithCredential(credential));
+                      print('1---------------------------');
+                      final user = firebaseUser.user;
 
-                    // print('1--------------------------------');
-                    final GoogleSignInAuthentication googleAuthentication =
-                        await googleUser.authentication;
-                    // print('1----------------------------');
-                    final GoogleAuthCredential credential =
-                        GoogleAuthProvider.credential(
-                            idToken: googleAuthentication.idToken,
-                            accessToken: googleAuthentication.accessToken);
-                    // print('1-------------------------');
-                    UserCredential firebaseUser =
-                        (await _auth.signInWithCredential(credential));
-                    // print('1---------------------------');
-                    final user = firebaseUser.user;
-
-                    setState(() {
-                      s = false;
-                    });
-                    if (user != null) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MyHomePage(username),
-                        ),
-                      );
+                      setState(() {
+                        s = false;
+                      });
+                      if (user != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MyHomePage(username),
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      setState(() {
+                        s = false;
+                      });
+                      /* Alert(
+                        context: context,
+                        title: "INVALID CREDENTIALS",
+                      ).show() */
+                      showAlertDialog(context, "Invalid Credentials");
                     }
                   },
                   color: Colors.blue,

@@ -1,3 +1,4 @@
+import 'package:decision_maker/DialogBox.dart';
 import 'package:flutter/material.dart';
 
 import 'BottomButton.dart';
@@ -5,6 +6,7 @@ import 'jobs.dart';
 import 'package:decision_maker/Appbar.dart';
 import 'AcceptAlternativeForm.dart';
 import 'TimelineScreen.dart';
+//import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AlternativeScreen extends StatefulWidget {
   Job currentJob;
@@ -151,6 +153,14 @@ class _AlternativeScreenState extends State<AlternativeScreen> {
                           ),
                         ),
                       );
+                    } else {
+                      /* Alert(
+                        context: context,
+                        title: "ERROR",
+                        desc: "Please add atleast one alternative",
+                      ).show() */
+                      showAlertDialog(
+                          context, "Please add atleast 1 alternative");
                     }
                   }),
             ],

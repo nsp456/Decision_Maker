@@ -20,6 +20,7 @@ class _AcceptAlternativeFormState extends State<AcceptAlternativeForm> {
   @override
   Widget build(BuildContext context) {
     attrName = widget.currentJob.attributeList.keys.toList();
+    print(attrName);
     return Scaffold(
       appBar: AppBar(
         title: Text("Alternative Details"),
@@ -55,6 +56,7 @@ class _AcceptAlternativeFormState extends State<AcceptAlternativeForm> {
                 child: ListView.builder(
                   itemCount: widget.currentJob.attributeCount,
                   itemBuilder: (BuildContext contex, int index) {
+                    //print(index);
                     return TextFormField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(

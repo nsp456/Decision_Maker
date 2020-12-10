@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 
 import 'package:expandable/expandable.dart';
 
@@ -225,3 +225,4 @@ class AttributeCard extends StatelessWidget {
     );
   }
 }
+ */

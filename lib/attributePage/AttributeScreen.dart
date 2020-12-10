@@ -1,3 +1,5 @@
+import 'package:decision_maker/DialogBox.dart';
+
 import 'AcceptAttributeForm.dart';
 import 'BottomButton.dart';
 import 'ImportanceScreen.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:decision_maker/Appbar.dart';
 import 'IndividualAttributeCard.dart';
+//import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AttributeScreen extends StatefulWidget {
   Job currentJob;
@@ -94,6 +97,8 @@ class AttributeScreenState extends State<AttributeScreen> {
                   //print(widget.currentJob.attributeList);
                   //print(widget.currentJob.attributeList.keys.length);
                   if (listOfWidgets.length > 1) {
+                    //print("AC: ${widget.currentJob.attributeCount}");
+                    widget.currentJob.attributeCount = 0;
                     widget.currentJob.attributeList = Map();
                     for (int i = 0; i < listOfWidgets.length; i++) {
                       widget.currentJob.createAttribute(
@@ -108,6 +113,13 @@ class AttributeScreenState extends State<AttributeScreen> {
                             ImportanceScreen(currentJob: widget.currentJob),
                       ),
                     );
+                  } else {
+                    /* Alert(
+                      context: context,
+                      title: "ERROR",
+                      desc: "Pls add atleast 2 attributes",
+                    ).show() */
+                    showAlertDialog(context, "Please add atleast 2 attributes");
                   }
                 },
               )

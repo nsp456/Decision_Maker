@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './job_name.dart';
 import './Appbar.dart';
@@ -259,3 +259,4 @@ class _Alternative_cardState extends State<Alternative_card> {
     );
   }
 }
+ */

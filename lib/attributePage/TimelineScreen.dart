@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:firebase_core/firebase_core.dart';
+
 import '../Appbar.dart';
 import 'BottomButton.dart';
 import 'TimelineCard.dart';
@@ -11,11 +14,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 class TimelineScreen extends StatelessWidget {
   Job currentJob;
   List<Alternative> finalList = List();
+  final _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   TimelineScreen({@required this.currentJob});
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User user = auth.currentUser;
     //print("IndvalueOfAlternatibe ${currentJob.indValueOfAlternative}");
     //print("ranking: ${currentJob.rankingList}");
     finalList = currentJob.rankingList.toList();
@@ -56,12 +61,13 @@ class TimelineScreen extends StatelessWidget {
                 BottomButton(
                     buttonName: "GO BACK TO HOME",
                     funName: () {
-                      Map<int, Map<String, dynamic>> result =
-                          Map<int, Map<String, dynamic>>();
+                      Map<String, Map<String, dynamic>> result =
+                          Map<String, Map<String, dynamic>>();
                       for (int i = 0; i < currentJob.rankingList.length; i++) {
-                        result[i + 1] = {
+                        result[(i + 1).toString()] = {
                           "Name": currentJob.rankingList[i].name,
                           "Score": currentJob.rankingList[i].indValAlternative
+                              .toString(),
                         };
                       }
                       //print(result);
@@ -70,6 +76,10 @@ class TimelineScreen extends StatelessWidget {
                         "result": result
                       };
                       print(finResult);
+                      _firestore.collection('user').add({
+                        "email": user.email,
+                        "result": finResult,
+                      });
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
