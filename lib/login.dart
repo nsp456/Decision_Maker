@@ -236,23 +236,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       s = true;
                     });
 
-                    print('hey');
+                    //print('hey');
                     try {
                       final GoogleSignInAccount googleUser =
                           await googleSignIn.signIn();
 
-                      print('1--------------------------------');
+                      //print('1--------------------------------');
                       final GoogleSignInAuthentication googleAuthentication =
                           await googleUser.authentication;
-                      print('1----------------------------');
+                      //print('1----------------------------');
                       final GoogleAuthCredential credential =
                           GoogleAuthProvider.credential(
                               idToken: googleAuthentication.idToken,
                               accessToken: googleAuthentication.accessToken);
-                      print('1-------------------------');
+                      //print('1-------------------------');
                       UserCredential firebaseUser =
                           (await _auth.signInWithCredential(credential));
-                      print('1---------------------------');
+                      //print('1---------------------------');
                       final user = firebaseUser.user;
 
                       setState(() {

@@ -1,3 +1,4 @@
+import 'package:decision_maker/welcomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
@@ -148,7 +149,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ListTile(
             onTap: () async {
               await Signout().signout();
-              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => WelcomePage()),
+                  (Route<dynamic> route) => false);
             },
             leading: Icon(Icons.exit_to_app),
             title: Text("Log Out"),
