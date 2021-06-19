@@ -1,6 +1,7 @@
 # DECISION MAKER
 
-Try this app for making simple as well as complex decisions
+Try this app for making simple as well as complex decisions.
+
 Video Explanation of the app here - https://drive.google.com/file/d/15dssEoGCwvhlfsyw3_c7gZZqy9SXiVHD/view
 ## Getting Started
 
